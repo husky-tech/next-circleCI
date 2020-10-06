@@ -34,7 +34,9 @@ jobs:
           command: npm install
       - run:
           name: Install lint
-          command: npm install eslint
+          command: |
+            npm install -D eslint &&
+            npm install -D eslint-plugin-react
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
