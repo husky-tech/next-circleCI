@@ -1,7 +1,8 @@
 version: 2
 jobs:
   checklint:
-    executor: docker-image
+    docker:
+      - image: gcr.io/google-appengine/nodejs
     steps:
       - checkout
       - node/install-packages:
