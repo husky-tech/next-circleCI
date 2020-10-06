@@ -35,21 +35,24 @@ jobs:
       - run:
           name: Install lint
           command: npm install eslint
-      # - save_npm
-  lint:
-    executor:
-      name: default
-    steps:
-      - checkout
-      # - restore_npm
       - run:
-          name: Run lint
+          name: Execute lint
           command: npm run lint
+      # - save_npm
+  # lint:
+  #   executor:
+  #     name: default
+  #   steps:
+  #     - checkout
+  #     # - restore_npm
+  #     - run:
+  #         name: Run lint
+  #         command: npm run lint
 
 workflows:
   linting:
     jobs:
       - setup
-      - lint:
-          requires:
-            - setup
+      # - lint:
+      #     requires:
+      #       - setup
