@@ -30,8 +30,11 @@ jobs:
       - checkout
       # - restore_npm
       - run:
-          name: Install npm dependencies
+          name: Install npm install
           command: npm install
+      - run:
+          name: Install lint
+          command: npm install eslint
       # - save_npm
   lint:
     executor:
