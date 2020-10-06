@@ -2,13 +2,13 @@ version: 2
 jobs:
   checklint:
     executor: docker-image
-      steps:
-        - checkout
-        - node/install-packages:
-            cache-path: ~/project/node_modules
-            override-ci-command: npm install
-        - run:
-    command: npm run lint
+    steps:
+      - checkout
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run:
+          command: npm run lint
   # build:
   #   docker:
   #     - image: circleci/node:8.11.3
