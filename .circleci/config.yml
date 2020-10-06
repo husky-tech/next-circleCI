@@ -37,7 +37,7 @@ jobs:
           command: npm install eslint
       - run:
           name: Execute lint
-          command: npm run lint
+          command: node_modules/.bin/eslint .
       # - save_npm
   # lint:
   #   executor:
