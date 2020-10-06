@@ -28,17 +28,17 @@ jobs:
       name: default
     steps:
       - checkout
-      - restore_npm
+      # - restore_npm
       - run:
           name: Install npm dependencies
           command: npm ci
-      - save_npm
+      # - save_npm
   lint:
     executor:
       name: default
     steps:
       - checkout
-      - restore_npm
+      # - restore_npm
       - run:
           name: Run lint
           command: npm run lint
