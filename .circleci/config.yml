@@ -1,36 +1,30 @@
-version: 2.1
-executors:
-  node:
-    working_directory: ~/project
-    docker:
-      - image: circleci/node:10.12-browsers
+version: 2
 jobs:
   build:
-    executor:
-      name: node
+    docker:
+      - image: circleci/node:8.11.3
     steps:
-      - checkout
-      - run:
-          name: update-npm
-          command: "sudo npm install -g npm@latest"
       - restore_cache:
-          key: node-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - run:
-          name: npm install on ci
-          command: npm ci
+          keys:
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
+      - checkout
       - save_cache:
-          key: node-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: source-v1-{{ .Branch }}-{{ .Revision }}
           paths:
-            - ./node_modules
-      - persist_to_workspace:
-          root: .
+            - .git
+      - restore_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
+      - run: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
-            - .
+            - node_modules
       - run:
-          name: build flat
-          command: npm run build
-workflows:
-  version: 2
-  build-and-cache:
-    jobs:
-      - build
+          name: lint
+          command: |
+            mkdir -p /tmp/test-reports/eslint
+            node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
+      - store_test_results:
+          path: /tmp/test-reports
