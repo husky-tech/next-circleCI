@@ -1,8 +1,16 @@
 version: 2
+
+executors:
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node
+      environment:
+        TZ: Asia/Tokyo
+
+
 jobs:
   checklint:
-    docker:
-      - image: gcr.io/google-appengine/nodejs
+    executor: docker
     steps:
       - checkout
       - node/install-packages:
