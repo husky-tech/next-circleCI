@@ -39,7 +39,8 @@ jobs:
             npm install -D eslint-plugin-react &&
             npm install -D eslint-config-airbnb &&
             npm install -D eslint-plugin-jsx-a11y &&
-            npm install -D eslint-plugin-import
+            npm install -D eslint-plugin-import &&
+            npm install react
 
       - run:
           name: Execute lint
