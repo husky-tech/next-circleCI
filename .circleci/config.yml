@@ -36,9 +36,11 @@ jobs:
           name: Install lint
           command: |
             npm install -D eslint &&
-            npm install -D eslint-plugin-react
-            npm install -D eslint-config-airbnb
-            npm install -D eslint-plugin-jsx-a11y
+            npm install -D eslint-plugin-react &&
+            npm install -D eslint-config-airbnb &&
+            npm install -D eslint-plugin-jsx-a11y &&
+            npm install -D eslint-plugin-import
+
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
