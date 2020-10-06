@@ -37,6 +37,7 @@ jobs:
           command: |
             npm install -D eslint &&
             npm install -D eslint-plugin-react
+            npm install -D eslint-config-airbnb
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
