@@ -1,36 +1,55 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@2.0.3
+executors:
+  default:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:12
+        environment:
+          TZ: Asia/Tokyo
 
 commands:
-  setup-node-and-yarn-install-with-cache:
+  restore_npm:
     steps:
-      - node/install:
-          install-yarn: true
-          node-version: latest
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: yarn.lock
+      - restore_cache:
+          name: Restore npm dependencies
+          key: npm-v1-{{ checksum "package-lock.json" }}
+  save_npm:
+    steps:
+      - save_cache:
+          name: Cache npm dependencies
+          key: npm-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/repo/node_modules
 
 jobs:
-  lint-and-test:
+  setup:
     executor:
-      name: node/default
+      name: default
     steps:
       - checkout
-      - setup-node-and-yarn-install-with-cache
+      # - restore_npm
       - run:
-          name: Lint
+          name: Install npm install
+          command: npm install
+      - run:
+          name: Install lint
+          command: npm install eslint
+      # - save_npm
+  lint:
+    executor:
+      name: default
+    steps:
+      - checkout
+      # - restore_npm
+      - run:
+          name: Run lint
           command: npm run lint
-      - run:
-          name: Check types
-          command: npm run check-types
-      - run:
-          name: Run tests
-          command: npm run test
 
 workflows:
-  run-ci:
+  linting:
     jobs:
-      - lint-and-test
+      - setup
+      - lint:
+          requires:
+            - setup
