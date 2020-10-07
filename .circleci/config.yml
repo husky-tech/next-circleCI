@@ -43,11 +43,23 @@ jobs:
       #     name: Check structure
       #     command: ls -a && cd src && ls -a && cd app && ls -a
       - run:
-          name: npm test
-          command: |
-            cd src/app/ &&
-            npm install &&
-            node_modules/.bin/eslint .
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      # - run:
+      #     name: npm test
+      #     command: |
+      #       cd src/app/ &&
+      #       npm install &&
+      #       node_modules/.bin/eslint .
       # - run:
       #     name: Execute lint
       #     command: node_modules/.bin/eslint .
