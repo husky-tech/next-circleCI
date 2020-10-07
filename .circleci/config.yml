@@ -30,7 +30,7 @@ jobs:
       - checkout
       # - restore_npm
       - run:
-          name: Install npm install
+          name: Install npm
           command: npm install
       - run:
           name: Install lint
@@ -41,7 +41,9 @@ jobs:
             npm install -D eslint-plugin-jsx-a11y &&
             npm install -D eslint-plugin-import &&
             npm install react
-
+      - run:
+          name: Check structure
+          command: ls -a
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
