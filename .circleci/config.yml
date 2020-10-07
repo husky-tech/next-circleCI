@@ -56,7 +56,7 @@ jobs:
             - src/app/node_modules
       - run:
           name: Execute lint
-          command: node_modules/.bin/eslint .
+          command: src/app/node_modules/.bin/eslint .
       # - run:
       #     name: npm test
       #     command: |
