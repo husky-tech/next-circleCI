@@ -29,24 +29,30 @@ jobs:
     steps:
       - checkout
       # - restore_npm
+      # - run:
+      #     name: Install npm
+      #     command: npm install
+      # - run:
+      #     name: Install lint
+      #     command: |
+      #       npm install -D eslint &&
+      #       npm install -D eslint-plugin-react &&
+      #       npm install -D eslint-config-airbnb &&
+      #       npm install -D eslint-plugin-jsx-a11y &&
+      #       npm install -D eslint-plugin-import &&
+      #       npm install react
+      # - run:
+      #     name: Check structure
+      #     command: ls -a && cd src && ls -a && cd app && ls -a
       - run:
-          name: Install npm
-          command: npm install
-      - run:
-          name: Install lint
+          name: npm test
           command: |
-            npm install -D eslint &&
-            npm install -D eslint-plugin-react &&
-            npm install -D eslint-config-airbnb &&
-            npm install -D eslint-plugin-jsx-a11y &&
-            npm install -D eslint-plugin-import &&
-            npm install react
-      - run:
-          name: Check structure
-          command: ls -a && cd src && ls -a && cd app && ls -a
-      - run:
-          name: Execute lint
-          command: node_modules/.bin/eslint .
+            cd src || cd app &&
+            npm install &&
+            node_modules/.bin/eslint .
+      # - run:
+      #     name: Execute lint
+      #     command: node_modules/.bin/eslint .
       # - save_npm
   # lint:
   #   executor:
