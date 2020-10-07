@@ -6,7 +6,6 @@ executors:
       - image: circleci/node:12.16.3-buster
     working_directory: ~/project
 
-
 commands:
   restore_npm:
     steps:
@@ -22,7 +21,7 @@ commands:
             - ~/repo/node_modules
 
 jobs:
-  setup:
+  web_office_lint_check:
     executor:
       name: node12_cli
     steps:
@@ -64,9 +63,9 @@ jobs:
   #         command: npm run lint
 
 workflows:
-  linting:
+  web-office:
     jobs:
-      - setup
+      - web_office_lint_check
       # - lint:
       #     requires:
       #       - setup
