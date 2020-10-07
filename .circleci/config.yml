@@ -1,12 +1,11 @@
 version: 2.1
 
 executors:
-  default:
-    working_directory: ~/repo
+  node12_cli:
     docker:
-      - image: circleci/node:12
-        environment:
-          TZ: Asia/Tokyo
+      - image: circleci/node:12.16.3-alpine3.9
+    working_directory: ~/project
+
 
 commands:
   restore_npm:
@@ -25,7 +24,7 @@ commands:
 jobs:
   setup:
     executor:
-      name: default
+      name: node12_cli
     steps:
       - checkout
       # - restore_npm
@@ -47,7 +46,7 @@ jobs:
       - run:
           name: npm test
           command: |
-            cd src && cd app &&
+            cd src/app/ &&
             npm install &&
             node_modules/.bin/eslint .
       # - run:
