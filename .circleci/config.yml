@@ -43,7 +43,7 @@ jobs:
             npm install react
       - run:
           name: Check structure
-          command: ls -a
+          command: ls -a && cd src && ls -a
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
