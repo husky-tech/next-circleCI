@@ -48,7 +48,7 @@ jobs:
           name: npm test
           command: |
             cd src && cd app &&
-            ls -a
+            node_modules/.bin/eslint .
       # - run:
       #     name: Execute lint
       #     command: node_modules/.bin/eslint .
