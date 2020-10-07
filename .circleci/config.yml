@@ -54,6 +54,9 @@ jobs:
           key: dependency-cache-{{ checksum "src/app/package-lock.json" }}
           paths:
             - src/app/node_modules
+      - run:
+          name: Execute lint
+          command: node_modules/.bin.eslint .
       # - run:
       #     name: npm test
       #     command: |
