@@ -47,8 +47,7 @@ jobs:
       - run:
           name: npm test
           command: |
-            cd src || cd app &&
-            npm install &&
+            cd src && cd app &&
             ls -a
       # - run:
       #     name: Execute lint
