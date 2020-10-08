@@ -44,7 +44,6 @@ jobs:
       #     command: ls -a && cd src && ls -a && cd app && ls -a
       - restore_cache:
           key: v1-npm-deps-{{ checksum "src/app/package-lock.json" }}
-          working_directory: ~/project/src/app
       - run:
           name: install-npm-wee
           command: npm install
@@ -53,7 +52,6 @@ jobs:
           key: v1-npm-deps-{{ checksum "src/app/package-lock.json" }}
           paths:
             - src/app/node_modules
-          working_directory: ~/project/src/app
       - run:
           name: Execute lint
           command: node_modules/.bin/eslint .
