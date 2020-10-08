@@ -43,16 +43,16 @@ jobs:
       #     name: Check structure
       #     command: ls -a && cd src && ls -a && cd app && ls -a
       - restore_cache:
-          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          key: v1-npm-deps-{{ checksum "src/app/package-lock.json" }}
           working_directory: ~/project/src/app
       - run:
           name: install-npm-wee
           command: npm install
           working_directory: ~/project/src/app
       - save_cache:
-          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          key: v1-npm-deps-{{ checksum "src/app/package-lock.json" }}
           paths:
-            - node_modules
+            - src/app/node_modules
           working_directory: ~/project/src/app
       - run:
           name: Execute lint
